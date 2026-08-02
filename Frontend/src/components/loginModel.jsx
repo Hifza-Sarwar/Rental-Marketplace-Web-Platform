@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { login } from "../api/auth";
+import { saveAuth } from "../utils/auth";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -17,17 +18,19 @@ function Login() {
       const data = await login({ email, password });
 
       if (data.user.role !== "user") {
-        alert("Please use the vendor login for vendor accounts.");
+        alert("Please use the correct login page.");
         return;
       }
-
+      
+      saveAuth(data.user, data.token);
+      
       alert("Login Successful!");
       const redirectTo = location.state?.redirectTo;
 
       if (redirectTo) {
         navigate(redirectTo);
       } else {
-        navigate("/user-dashboard");
+        navigate("/");
       }
     } catch (error) {
       alert(error.message);

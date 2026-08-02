@@ -30,26 +30,23 @@
     margin-top: 30px;
 }
 
-.admin-menu li {
+.admin-menu li{
+    display: block;
+    color: white;
+    padding: 14px 18px;
     margin-bottom: 10px;
+    border-radius: 8px;
+    transition: .3s;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
 }
 
-.admin-menu a{
-    display:block;
-    text-decoration:none;
-    color:white;
-    padding:14px 18px;
-    border-radius:8px;
-    transition:.3s;
-    font-size:16px;
-    font-weight:500;
-}
-
-.admin-menu a:hover {
+.admin-menu li:hover{
     background: #374151;
 }
 
-.admin-menu a.active {
+.admin-menu li.active{
     background: #2563eb;
 }
 

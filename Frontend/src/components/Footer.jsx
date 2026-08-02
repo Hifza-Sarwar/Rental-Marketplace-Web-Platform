@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 function Footer(){
     return(
         <>
@@ -52,12 +53,12 @@ function Footer(){
     <h3>Quick Links</h3>
 
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Browse Rentals</a></li>
-      <li><a href="#">Categories</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Contact Us</a></li>
-      <li><a href="#">List Your Item</a></li>
+    <li><Link to="/">Home</Link></li>
+<li><Link to="/rentals">Browse Rentals</Link></li>
+<li><Link to="/cars">Categories</Link></li>
+<li><Link to="/#about">About Us</Link></li>
+<li><Link to="/contact">Contact Us</Link></li>
+<li><Link to="/add-listing">List Your Item</Link></li>
     </ul>
 
   </div>

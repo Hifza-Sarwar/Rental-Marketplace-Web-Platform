@@ -9,6 +9,7 @@ import dressesData from "../Data/DressData";
 import ProductCard from "../components/ProductCard";
 
 function Rentals() {
+
     const [search, setSearch] = useState("");
     // All category products in one array
   const allProducts = [
@@ -67,6 +68,7 @@ function Rentals() {
       matchesAvailability
     );
   });
+  
   return (
     <section className="category-page">
 

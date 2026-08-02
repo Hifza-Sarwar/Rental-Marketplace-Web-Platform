@@ -21,7 +21,7 @@ function VendorListings({
   
               <div
                 className="listing-card"
-                key={item.id}
+                key={item._id}
               >
   
                 {item.images && item.images.length > 0 && (
@@ -61,7 +61,7 @@ function VendorListings({
   
                   <button
                     className="delete-btn"
-                    onClick={() => handleDelete(item.id)}
+                    onClick={() => handleDelete(item._id)}
                   >
                     Delete
                   </button>

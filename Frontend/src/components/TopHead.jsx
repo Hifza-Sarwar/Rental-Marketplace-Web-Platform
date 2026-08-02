@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { getCurrentUser, clearAuth } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 import LoginModal from "./loginModel";
 function TopHeader(){
-    const user = localStorage.getItem("user");
+    const navigate = useNavigate();
+const currentUser = getCurrentUser();
 const [showLogin, setShowLogin] = useState(false);
     return(
         <div className="top-header">
@@ -27,18 +30,36 @@ const [showLogin, setShowLogin] = useState(false);
 
                     <div className="col-2">
 
-                    {user ? (
+                    {currentUser ? (
   <>
-    <span>{user}</span>
+    <span>
+ {currentUser.name} ({currentUser.role})
+</span>
+<button
+  className="dashboard-btn"
+  onClick={() => {
+    if (currentUser.role === "user") {
+      navigate("/user-dashboard");
+    } else if (currentUser.role === "vendor") {
+      navigate("/vendor-dashboard");
+    } else if (currentUser.role === "admin") {
+      navigate("/admin-dashboard");
+    }
+  }}
+>
+  Dashboard
+</button>
 
-    <button
-      onClick={() => {
-        localStorage.removeItem("user");
-        window.location.reload();
-      }}
-    >
-      Logout
-    </button>
+<button
+  className="logout-btn-top"
+  onClick={() => {
+    clearAuth();
+    navigate("/");
+    window.location.reload();
+  }}
+>
+  Logout
+</button>
   </>
 ) : (
   <>
@@ -59,7 +80,7 @@ const [showLogin, setShowLogin] = useState(false);
  
    
 
-    <Link to="/choose-signup" target="_blank">
+    <Link to="/choose-signup">
       Register
     </Link>
   </>

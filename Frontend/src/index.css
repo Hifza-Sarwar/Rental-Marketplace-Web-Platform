@@ -8,7 +8,7 @@
     border:none;
     text-decoration: none;
    list-style: none;
-   scroll-behavior: smooth;
+   scroll-behavior: auto;
    /* font-family: 'playfair display',serif; */
 }
 
@@ -87,6 +87,43 @@ body{
 }
 .out-box .inside-box .col-2 .socail i:hover,
 .out-box .inside-box .col-2 a:hover{
+    color: var(--main-color);
+}
+/* Dashboard and logout button */
+/* Dashboard Button */
+.dashboard-btn{
+    background: var(--main-color);
+    color: #fff;
+    padding: 1rem 1.8rem;
+    border-radius: 14px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.5s ease;
+    margin-left: 1rem;
+}
+
+.dashboard-btn:hover{
+    background: var(--text-color);
+    color: #fff;
+}
+
+/* Logout Button */
+.logout-btn-top{
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: .8rem 1.8rem;
+    border-radius: 14px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.5s ease;
+    margin-left: .8rem;
+}
+
+.logout-btn-top:hover{
+    background: #fff;
     color: var(--main-color);
 }
           /* MEDIA QUERY */

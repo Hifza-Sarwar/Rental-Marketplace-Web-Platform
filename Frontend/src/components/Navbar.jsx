@@ -6,32 +6,24 @@ function Navbar(){
 
     const navigate = useNavigate();
 
-const handleAddListing = () => {
-  const currentUser = localStorage.getItem("user");
-
-  if (!currentUser) {
-    navigate("/choose-login", {
-      state: {
-        redirectTo: "/add-listing",
-      },
-    });
-    return;
-  }
-
-  const users =
-    JSON.parse(localStorage.getItem("users")) || [];
-
-  const loggedInUser = users.find(
-    (user) => user.email === currentUser
-  );
-
-  if (loggedInUser?.role !== "vendor") {
-    alert("Only vendors can add listings.");
-    return;
-  }
-
-  navigate("/add-listing");
-};
+    const handleAddListing = () => {
+        const currentUser = JSON.parse(localStorage.getItem("user"));
+      
+        // Not logged in
+        if (!currentUser) {
+          navigate("/choose-login");
+          return;
+        }
+      
+        // Logged in but not a vendor
+        if (currentUser.role !== "vendor") {
+          alert("Only vendors can add listings.");
+          return;
+        }
+      
+        // Logged in as vendor
+        navigate("/add-listing");
+      };
     return(
 
         <header className="header">
@@ -47,11 +39,11 @@ const handleAddListing = () => {
                     <ul className="navlink">
 
                         <li>
-                            <a href="#">Home</a>
+                           <Link to ="/">Home</Link>
                         </li>
 
                         <li>
-                            <a href="#about">About</a>
+                            <a href="/#about">About</a>
                         </li>
 
                         <li>

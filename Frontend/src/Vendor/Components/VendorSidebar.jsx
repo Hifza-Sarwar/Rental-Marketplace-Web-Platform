@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 function VendorSidebar({ activeMenu, setActiveMenu }) {
+  const navigate = useNavigate();
     return (
       <div className="sidebar">
   
@@ -7,6 +9,9 @@ function VendorSidebar({ activeMenu, setActiveMenu }) {
         </div>
   
         <ul>
+        <li onClick={() => navigate("/")}>
+  <i className="fas fa-home"></i> Home
+</li>
   
           <li
             className={activeMenu === "Dashboard" ? "active" : ""}
@@ -52,7 +57,7 @@ function VendorSidebar({ activeMenu, setActiveMenu }) {
             onClick={() => {
               localStorage.removeItem("user");
               localStorage.removeItem("editItem");
-              window.location.href = "/";
+              navigate("/");
             }}
           >
             <i className="fas fa-sign-out-alt"></i>

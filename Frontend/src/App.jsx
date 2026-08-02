@@ -29,7 +29,8 @@ import AdminDashboard from "/src/Admin/pages/AdminDashboard";
 import Users from "/src/Admin/pages/UserPage"
 import Vendor from "./Admin/pages/Vendor";
 import Products from "./Admin/pages/ProductPage";
-import Bookings from "./Admin/pages/BookingPage"
+import Bookings from "./Admin/pages/BookingPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 
 
@@ -61,6 +62,7 @@ function App() {
   <>
   {!hideLayout &&   <TopHeader/>}
   {!hideLayout &&   <Navbar/>  }
+  <ScrollToTop/>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/furniture" element={<Furniture />} />
@@ -78,7 +80,9 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/choose-signup" element={<SignupSelection />}/>
       <Route path="/rentals" element={<Rentals />} />
-      <Route path="/add-listing" element={<AddListing/>}/>
+      <Route path="/add-listing" element={<AddListing />} />
+      <Route path="/edit-listing/:id" element={<AddListing />} />
+      <Route path="/add-listing/:id" element={<AddListing />} />
       <Route path="/vendor-dashboard" element={<VendorDashboard />}/>
       <Route path="/user-dashboard" element={<UserDashboard />}/>
       <Route path="/admin-login" element={<AdminLogin />} />

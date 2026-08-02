@@ -55,6 +55,26 @@ export const getAllListings = async (req, res) => {
     }
     
   };
+  // Get logged-in vendor's listings
+export const getMyListings = async (req, res) => {
+  console.log("✅ getMyListings controller called");
+
+  try {
+    const listings = await Listing.find({
+      owner: req.user._id,
+    });
+
+    res.status(200).json({
+      count: listings.length,
+      listings,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 //   Listing by ID
   export const getListingById = async (req, res) => {
     try {
@@ -127,12 +147,16 @@ export const deleteListing = async (req, res) => {
         });
       }
   
-      // Only the owner can delete
-      if (listing.owner.toString() !== req.user._id.toString()) {
-        return res.status(403).json({
-          message: "You can only delete your own listings.",
-        });
-      }
+    // Vendor can delete only their own listing.
+// Admin can delete any listing.
+if (
+  req.user.role !== "admin" &&
+  listing.owner.toString() !== req.user._id.toString()
+) {
+  return res.status(403).json({
+    message: "You can only delete your own listings.",
+  });
+}
   
       await listing.deleteOne();
   

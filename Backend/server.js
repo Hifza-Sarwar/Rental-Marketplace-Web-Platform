@@ -9,6 +9,7 @@ import bookingRoutes from "./routes/bookingRoutes.js";
 // for image
 import path from "path";
 dotenv.config();
+console.log(process.env.MONGO_URI);
 connectDB();
 const app = express();
 app.use(express.json());

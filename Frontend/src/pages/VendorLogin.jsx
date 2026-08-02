@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/auth";
+import { saveAuth } from "../utils/auth";
 
 function VendorLoginModal() {
   const [email, setEmail] = useState("");
@@ -16,11 +17,15 @@ function VendorLoginModal() {
       const data = await login({ email, password });
 
       if (data.user.role !== "vendor") {
-        alert("Please use the user login for customer accounts.");
+        alert("Please use the correct login page.");
         return;
       }
+      
+      saveAuth(data.user, data.token);
+      
+      alert("Login Successful!");
 
-      navigate("/vendor-dashboard");
+      navigate("/");
     } catch (error) {
       alert(error.message);
     } finally {

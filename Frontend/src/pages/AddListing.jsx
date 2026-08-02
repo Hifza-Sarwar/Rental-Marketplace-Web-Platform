@@ -1,9 +1,19 @@
 import { useState, useRef ,useEffect} from "react";
+import { useParams,useNavigate } from "react-router-dom";
+import {
+  createListing,
+  updateListing,
+  getListingById
+} from "../api/listings";
 
 function AddListing() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [imageFile, setImageFile] = useState(null);
+  const [images, setImages] = useState([]);
+
 
   // Stores uploaded image previews
-  const [images, setImages] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
 
 const [editingId, setEditingId] = useState(null);
@@ -31,86 +41,54 @@ const [editingId, setEditingId] = useState(null);
 
   // Handles image uploads and converts images into preview URLs
   const handleFiles = (files) => {
-
-    [...files].forEach((file) => {
-
-      // FileReader is used to read image files
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-
-        // Adds new image preview to existing images array
-        setImages((prev) => [...prev, e.target.result]);
-      };
-
-      // Converts image into Base64 format
-      reader.readAsDataURL(file);
-
-    });
-
+    const file = files[0];
+  
+    if (!file) return;
+  
+    setImageFile(file);
+  
+    const reader = new FileReader();
+  
+    reader.onload = (e) => {
+      setImages([e.target.result]);
+    };
+  
+    reader.readAsDataURL(file);
   };
-
   // Removes selected image from preview list
   const removeImage = (index) => {
     setImages(images.filter((_, i) => i !== index));
   };
 
   // Handles form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
 
     // Prevents page refresh
     e.preventDefault();
 
-    // Creates a new rental item object
-    const item = {
-      id: Date.now(),
-      ...formData,
-      images,
-      vendor: localStorage.getItem("user")
-    };
+    const form = new FormData();
 
-    // Retrieves existing items from localStorage
-    const items =
-      JSON.parse(localStorage.getItem("items")) || [];
+form.append("title", formData.title);
+form.append("description", formData.desc);
+form.append("category", formData.category);
+form.append("pricePerDay", formData.price);
+form.append("location", formData.location);
 
-    // Adds new item into array
-    const editItem = JSON.parse(
-      localStorage.getItem("editItem")
-    );
-    
-    if (editItem) {
-    
-      const updatedItems = items.map((product) =>
-        product.id === editItem.id
-          ? {
-              ...item,
-              id: editItem.id,
-              vendor: editItem.vendor,
-            }
-          : product
-      );
-    
-      localStorage.setItem(
-        "items",
-        JSON.stringify(updatedItems)
-      );
-    
-      localStorage.removeItem("editItem");
-    
-      alert("Item Updated Successfully!");
-    
-    } else {
-    
-      items.push(item);
-    
-      localStorage.setItem(
-        "items",
-        JSON.stringify(items)
-      );
-    
-      alert("Item Added Successfully!");
-    }
+if (imageFile) {
+  form.append("image", imageFile);
+}
 
+try {
+  await createListing(form);
+
+  alert("Listing Added Successfully!");
+  
+  navigate("/vendor-dashboard");
+
+} catch (error) {
+  console.error(error);
+  alert(error.message);
+}
    
 
     // Resets form after successful submission
@@ -127,24 +105,34 @@ const [editingId, setEditingId] = useState(null);
 
   };
   useEffect(() => {
-    const editItem = JSON.parse(
-      localStorage.getItem("editItem")
-    );
+    if (!id) return;
   
-    if (editItem) {
-      setIsEditing(true);
-      setEditingId(editItem.id);
-      setFormData({
-        title: editItem.title,
-        category: editItem.category,
-        price: editItem.price,
-        location: editItem.location,
-        desc: editItem.desc,
-      });
+    async function fetchListing() {
+      try {
+        const listing = await getListingById(id);
   
-      setImages(editItem.images || []);
+        setIsEditing(true);
+  
+        setFormData({
+          title: listing.title,
+          category: listing.category,
+          price: listing.pricePerDay,
+          location: listing.location,
+          desc: listing.description,
+        });
+  
+        if (listing.image) {
+          setImages([
+            `http://localhost:5000/uploads/${listing.image}`,
+          ]);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }, []);
+  
+    fetchListing();
+  }, [id]);
   return (
 
     <section className="add-listing-page">
@@ -260,14 +248,11 @@ const [editingId, setEditingId] = useState(null);
 
             {/* Hidden file input controlled using useRef */}
             <input
-              type="file"
-              hidden
-              multiple
-              ref={fileInputRef}
-              onChange={(e) =>
-                handleFiles(e.target.files)
-              }
-            />
+  type="file"
+  hidden
+  ref={fileInputRef}
+  onChange={(e) => handleFiles(e.target.files)}
+/>
 
           </div>
 

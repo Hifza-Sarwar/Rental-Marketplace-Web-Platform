@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "/src/UserDashboard.css";
+import { getCurrentUser } from "../utils/auth";
+import { clearAuth } from "../utils/auth";
 
 function UserDashboard() {
   const navigate = useNavigate();
-  const currentUser = localStorage.getItem("user");
+  const currentUser = getCurrentUser();
 
 const bookings =
   JSON.parse(localStorage.getItem("bookings")) || [];
 
-const userBookings = bookings.filter(
-  (booking) => booking.customer === currentUser
-);
+  const userBookings = bookings.filter(
+    (booking) => booking.customer === currentUser?.email
+  );
 
 const pendingBookings = userBookings.filter(
   (booking) => booking.status === "Pending"
@@ -24,16 +26,25 @@ const approvedBookings = userBookings.filter(
 const rejectedBookings = userBookings.filter(
   (booking) => booking.status === "Rejected"
 );
+// Cancel booking
+const handleCancelBooking = (bookingId) => {
+  const bookings =
+    JSON.parse(localStorage.getItem("bookings")) || [];
+
+  const updatedBookings = bookings.filter(
+    (booking) => booking.id !== bookingId
+  );
+
+  localStorage.setItem(
+    "bookings",
+    JSON.stringify(updatedBookings)
+  );
+
+  window.location.reload();
+};
 
   const [activeMenu, setActiveMenu] = useState("Dashboard");
-  // Logout
-  const handleLogout = () => {
 
-    localStorage.removeItem("user");
-  
-    navigate("/");
-  
-  };
 
   return (
 
@@ -48,6 +59,9 @@ const rejectedBookings = userBookings.filter(
         </div>
 
         <ul>
+        <li onClick={() => navigate("/")}>
+  <i className="fas fa-home"></i> Home
+</li>
 
           <li
             className={activeMenu === "Dashboard" ? "active" : ""}
@@ -84,15 +98,11 @@ const rejectedBookings = userBookings.filter(
           </li>
 
           <li
-  onClick={() => {
-
-    localStorage.removeItem("user");
-
-    alert("Logged out successfully!");
-
-    window.location.href = "/";
-
-  }}
+ onClick={() => {
+  clearAuth();
+  alert("Logged out successfully!");
+  navigate("/");
+}}
 >
   <i className="fas fa-sign-out-alt"></i>
   Logout
@@ -193,9 +203,12 @@ const rejectedBookings = userBookings.filter(
           </span>
         </p>
 
-        <p>
-          <strong>Vendor:</strong> {booking.vendor}
-        </p>
+        <button
+  onClick={() => handleCancelBooking(booking.id)}
+  className="cancel-btn"
+>
+  Cancel Booking
+</button>
 
       </div>
 
@@ -221,8 +234,16 @@ const rejectedBookings = userBookings.filter(
     <h4>User Information</h4>
 
     <p>
-      <strong>Username:</strong> {currentUser}
-    </p>
+  <strong>Name:</strong> {currentUser?.name}
+</p>
+
+<p>
+  <strong>Email:</strong> {currentUser?.email}
+</p>
+
+<p>
+  <strong>Role:</strong> {currentUser?.role}
+</p>
 
     <p>
       <strong>Role:</strong> Customer
@@ -262,7 +283,7 @@ const rejectedBookings = userBookings.filter(
 
         alert("Logged out successfully!");
 
-        window.location.href = "/";
+        navigate("/");
 
       }}
     >

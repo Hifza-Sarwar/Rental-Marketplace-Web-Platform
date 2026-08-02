@@ -14,11 +14,14 @@ function CategoryPage({
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
 
-  const filteredProducts = data.filter((product) =>
-    product.name
+  const filteredProducts = data.filter((product) => {
+    const productName =
+      product.name || product.title || "";
+  
+    return productName
       .toLowerCase()
-      .includes(search.toLowerCase())
-  );
+      .includes(search.toLowerCase());
+  });
 
   const productsPerPage = 8;
 
@@ -98,7 +101,7 @@ function CategoryPage({
         <div className="rental-page active">
           {currentProducts.map((product) => (
             <ProductCard
-              key={product.id}
+            key={product._id || product.id}
               product={product}
             />
           ))}

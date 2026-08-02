@@ -47,30 +47,7 @@ if (startDate && endDate) {
   if (!product) {
     return <h2>Product Not Found</h2>;
   }
-  const handleBooking = () => {
-
-    const bookings =
-      JSON.parse(localStorage.getItem("bookings")) || [];
   
-      const booking = {
-        id: Date.now(),
-        customer: localStorage.getItem("user"),
-        vendor: product.vendor || "N/A",
-        productTitle: product.title || product.name,
-        productId: product.id,
-        status: "Pending",
-      };
-  
-    bookings.push(booking);
-  
-    localStorage.setItem(
-      "bookings",
-      JSON.stringify(bookings)
-    );
-  
-    alert("Booking Request Sent!");
-  };
-
   return (
     <section className="view-container">
       <div className="view-card">
@@ -117,11 +94,11 @@ if (startDate && endDate) {
             {/* To rent 1st have to login */}
 
             {user ? (
-  <Link to="/booking" state={{ product }}>
-    <button onClick={handleBooking}>
-      Rent Now
-    </button>
-  </Link>
+ <Link to="/booking" state={{ product }}>
+ <button>
+   Rent Now
+ </button>
+</Link>
 ) : (
 <button
   onClick={() =>

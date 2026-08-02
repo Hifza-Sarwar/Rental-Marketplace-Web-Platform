@@ -1,16 +1,28 @@
+import { useEffect, useState } from "react";
+import { getAllUsers } from "../../api/users";
 import AdminSidebar from "../Components/AdminSidebar";
 import AdminNavbar from "../Components/AdminNavbar";
 import "../styles/AdminDashboard.css";
 
 function Users() {
-  // Read user from local storage
-  const users =
-  JSON.parse(localStorage.getItem("users")) || [];
+  const [userList, setUserList] = useState([]);
 
-const userList = users.filter(
-  (user) => user.role === "user"
-);
+useEffect(() => {
+  async function fetchUsers() {
+    try {
+      const users = await getAllUsers();
 
+      setUserList(
+        users.filter((user) => user.role === "user")
+      );
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
+  fetchUsers();
+}, []);
 const handleDelete = (id) => {
 
   const updatedUsers = users.filter(

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../api/auth";
+import { login } from "../../api/auth";
+import { saveAuth } from "../../utils/auth";
 
 function AdminLogin() {
 
@@ -18,13 +19,16 @@ function AdminLogin() {
     try {
       const data = await login({ email, password });
 
-      if (data.user.role !== "admin") {
-        alert("Invalid Admin Credentials");
-        return;
-      }
+if (data.user.role !== "admin") {
+  alert("Please use the correct login page.");
+  return;
+}
 
-      localStorage.setItem("admin", "true");
-      navigate("/admin-dashboard");
+saveAuth(data.user, data.token);
+
+alert("Login Successful!");
+
+navigate("/admin-dashboard");
     } catch (error) {
       alert(error.message || "Invalid Admin Credentials");
     } finally {

@@ -8,3 +8,8 @@ export async function getAllUsers() {
 export async function getProfile() {
   return apiRequest("/api/users/profile");
 }
+export async function deleteUser(id) {
+  return apiRequest(`/api/users/${id}`, {
+    method: "DELETE",
+  });
+}

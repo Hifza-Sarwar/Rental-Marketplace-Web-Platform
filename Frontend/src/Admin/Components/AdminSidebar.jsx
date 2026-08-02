@@ -1,30 +1,59 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function AdminSidebar() {
+function AdminSidebar({
+  activeMenu,
+  setActiveMenu,
+}) {
+  const navigate = useNavigate();
+
   return (
     <aside className="sidebar">
       <h2 className="admin-logo">RentHub</h2>
 
       <ul className="admin-menu">
-        <li>
-          <NavLink to="/admin-dashboard">Dashboard</NavLink>
+
+        <li onClick={() => navigate("/")}>
+          Home
         </li>
 
-        <li>
-          <NavLink to="/admin/users">Users</NavLink>
+        <li
+          className={activeMenu === "Dashboard" ? "active" : ""}
+          onClick={() => setActiveMenu("Dashboard")}
+        >
+          Dashboard
         </li>
 
-        <li>
-          <NavLink to="/admin/vendors">Vendors</NavLink>
+        <li
+          className={activeMenu === "Users" ? "active" : ""}
+          onClick={() => setActiveMenu("Users")}
+        >
+          Users
         </li>
 
-        <li>
-          <NavLink to="/admin/products">Products</NavLink>
+        <li
+          className={activeMenu === "Listings" ? "active" : ""}
+          onClick={() => setActiveMenu("Listings")}
+        >
+          Listings
         </li>
 
-        <li>
-        <NavLink to="/admin/bookings">Bookings</NavLink>
+        <li
+          className={activeMenu === "Bookings" ? "active" : ""}
+          onClick={() => setActiveMenu("Bookings")}
+        >
+          Bookings
         </li>
+
+        <li
+          onClick={() => {
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+            navigate("/");
+          }}
+        >
+          Logout
+        </li>
+
       </ul>
     </aside>
   );

@@ -1,11 +1,11 @@
 import express from "express";
-import { createListing ,getAllListings,getListingById,updateListing,deleteListing} from "../controllers/listingController.js";
+import { createListing ,getAllListings,getMyListings,getListingById,updateListing,deleteListing} from "../controllers/listingController.js";
 import protect from "../middleware/authMiddleware.js";
 import authorizeRoles from "../middleware/roleMiddleware.js";
 import upload from "../middleware/picUpload.js";
 
 const router = express.Router();
-
+console.log("✅ ROUTELISTING FILE LOADED");
 // router.post(
 //     "/",
 //     protect,
@@ -42,6 +42,28 @@ router.post(
 
 
 router.get("/", getAllListings);
+// router.get(
+//   "/my-listings",
+//   protect,
+//   authorizeRoles("vendor"),
+//   getMyListings
+// );
+console.log("✅ REGISTERING /my-listings ROUTE");
+// router.get("/my-listings", (req, res) => {
+//   res.json({
+//     message: "MY LISTINGS ROUTE WORKS"
+//   });
+// });
+router.get(
+  "/my-listings",
+  (req, res, next) => {
+    console.log("✅ MY LISTINGS ROUTE HIT");
+    next();
+  },
+  protect,
+  authorizeRoles("vendor"),
+  getMyListings
+);
 router.get("/:id", getListingById);
 // updating listing
 router.put(
@@ -54,7 +76,7 @@ router.put(
 router.delete(
     "/:id",
     protect,
-    authorizeRoles("vendor"),
+    authorizeRoles("vendor","admin"),
     deleteListing
   );
 

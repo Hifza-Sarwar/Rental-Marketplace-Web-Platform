@@ -9,12 +9,37 @@ function Booking() {
   // Handles form submission.
 
   const handleBooking = (e) => {
+    
     e.preventDefault();
+  
+  
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+  
+    const bookings =
+      JSON.parse(localStorage.getItem("bookings")) || [];
+  
+    const booking = {
+      id: Date.now(),
+      customer: currentUser.email,
+      vendor: product.vendor || "N/A",
+      productId: product.id,
+      productTitle: product.title || product.name,
+      productImage: product.image,
+      price: product.price,
+      status: "Pending",
+    };
+  
+    bookings.push(booking);
+  
+    localStorage.setItem(
+      "bookings",
+      JSON.stringify(bookings)
+    );
+  
+    alert("Booking Successful!");
   
     navigate("/booking-success");
   };
-
-
   return (
     
     <>

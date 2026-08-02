@@ -4,7 +4,10 @@ export async function getAllListings() {
   const data = await apiRequest("/api/listings");
   return data.listings || [];
 }
-
+export async function getMyListings() {
+  const data = await apiRequest("/api/listings/my-listings");
+  return data.listings || [];
+}
 export async function getListingById(id) {
   return apiRequest(`/api/listings/${id}`);
 }
