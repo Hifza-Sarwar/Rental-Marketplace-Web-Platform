@@ -11,7 +11,7 @@ import farmHouse from "../assets/images/house/Farm House.avif";
 import furnishedApartment from "../assets/images/house/furnished apartment.avif";
 import holidayCottage from "../assets/images/house/Holiday Cottage.avif";
 import independentHouse from "../assets/images/house/Independent House.jpg";
-import luxuryAppartment from "../assets/images/house/Luxury apartment.avif";
+import luxuryAppartment from "../assets/images/house/luxury apartment.avif";
 import luxuryVilla from "../assets/images/house/Luxury Villa.avif";
 import modernFamilyHouse from "../assets/images/house/Modern Family House.avif";
 import modernStudioAppartmet from "../assets/images/house/modern studio apartment.avif";

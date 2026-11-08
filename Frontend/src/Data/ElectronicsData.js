@@ -18,7 +18,7 @@ import smartTv from "../assets/images/electronics/smart-tv.avif";
 import speaker from "../assets/images/electronics/speaker-system.avif";
 import stageLighting from "../assets/images/electronics/stage-lighting.avif";
 import microphone from "../assets/images/electronics/studio-microphone.avif";
-import tvUnit from "../assets/images/electronics/Tv-Entertainment-Unit.avif";
+import tvUnit from "../assets/images/electronics/TV-Entertainment-Unit.avif";
 import videoEqipment from "../assets/images/electronics/video-conference -equipment.avif";
 import vrHeadset from "../assets/images/electronics/vr-headset.avif";
 import xbox from "../assets/images/electronics/xbox-serie- x.avif";
