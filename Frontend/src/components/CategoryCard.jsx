@@ -11,7 +11,6 @@ function CategoryCard({ icon, title, link }) {
 
       <h3>{title}</h3>
 
-      {/* <span>Browse</span> */}
 
     </Link>
 

@@ -1,13 +1,10 @@
-
-
-
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken"; // 1. ye add
+import jwt from "jsonwebtoken"; 
 
-export const signup = async (req, res) => {
+export const signup = async (req, res) => {   
   try {
-    console.log("BODY AAYA:", req.body); // 2. debug ke liye
+    console.log("BODY AAYA:", req.body); 
     
     const { name, email, password, role } = req.body;
 
@@ -24,17 +21,20 @@ export const signup = async (req, res) => {
       password: hashedPassword,
       role,
     });
+     // 3. ye add
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "30d" }); // 3. ye add
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 
     res.status(201).json({
       message: "User Registered Successfully",
-      user: { id: user._id, name: user.name, email: user.email, role: user.role }, // password hide
-      token // 4. ye add
+      // password hide
+      user: { id: user._id, name: user.name, email: user.email, role: user.role }, 
+      token 
     });
 
   } catch (error) {
-    console.log("ERROR:", error); // 5. error terminal me dikhega
+     // 5. error terminal me dikhega
+    console.log("ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };

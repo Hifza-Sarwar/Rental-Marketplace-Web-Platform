@@ -57,7 +57,7 @@ export const getAllListings = async (req, res) => {
   };
   // Get logged-in vendor's listings
 export const getMyListings = async (req, res) => {
-  console.log("✅ getMyListings controller called");
+  console.log(" getMyListings controller called");
 
   try {
     const listings = await Listing.find({

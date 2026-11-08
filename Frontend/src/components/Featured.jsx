@@ -10,9 +10,6 @@ import electronicsData from "../Data/ElectronicsData";
 import housesData from "../Data/HouseData";
 import dressesData from "../Data/DressData";
 
-
-
-
 function Featured() {
   const featuredProducts = [
     furnitureData[0],
@@ -23,10 +20,8 @@ function Featured() {
     dressesData[0],
   ];
 
-  
   return (
     <section className="featured-items">
-
       <h1>
         Featured <span>Rentals</span>
       </h1>
@@ -38,21 +33,20 @@ function Featured() {
         breakpoints={{
           0: { slidesPerView: 1 },
           600: { slidesPerView: 2 },
-          900: { slidesPerView: 3 }
+          900: { slidesPerView: 3 },
         }}
       >
         {featuredProducts.map((product) => (
           <SwiperSlide key={product.id}>
-           <FeaturedCard
-  image={product.image}
-  title={product.name}
-  price={product.price}
-  tag="Featured"
-/>
+            <FeaturedCard
+              image={product.image}
+              title={product.name}
+              price={product.price}
+              tag="Featured"
+            />
           </SwiperSlide>
         ))}
       </Swiper>
-
     </section>
   );
 }

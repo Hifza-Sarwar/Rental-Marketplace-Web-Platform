@@ -26,8 +26,8 @@ function VendorSignup() {
   };
 
   return (
-    <section className="auth-page">
-      <div className="auth-card">
+    <section className="login-modal-overlay">
+      <div className="login-auth-card">
 
         <h2>Create Account</h2>
 
