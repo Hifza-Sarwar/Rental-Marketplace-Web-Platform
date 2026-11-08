@@ -144,7 +144,7 @@ body{
  }
 
 }
-@media(max-width:991.px){
+@media(max-width:991px){
     .top-header{
         display: none;
     }
