@@ -4361,3 +4361,68 @@ nav .others i.add-icon{
 .selection-auth-card a.back-home:hover{
     color: var(--main-color);
 }
+
+
+/* ===== VIEW DETAIL PAGE ===== */
+
+/* date inputs can be wider than their box on iPhone/Safari */
+.booking-box input[type="date"]{
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+@media (max-width: 900px){
+    .view-container{
+        padding: 50px 5%;
+    }
+    .view-card{
+        padding: 30px;
+        gap: 30px;
+    }
+    /* flex:1 was meant for side-by-side; once stacked, use plain full width */
+    .view-left,
+    .view-right{
+        flex: none;
+        width: 100%;
+    }
+    .view-left img{
+        height: 320px;
+    }
+    /* "Rent Now" inside the <Link> now matches the full-width login button */
+    .booking-box a{
+        display: block;
+    }
+    .booking-box a button{
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px){
+    .view-container{
+        padding: 25px 4%;
+    }
+    .view-card{
+        padding: 18px;
+        gap: 22px;
+    }
+    .view-left img{
+        height: 240px;
+    }
+    .view-right h2{
+        font-size: 2.4rem;
+    }
+    .view-price{
+        font-size: 1.8rem;
+    }
+    .view-location{
+        margin-bottom: 15px;
+    }
+    .booking-box label{
+        font-size: 1.6rem;
+    }
+    .booking-box h3{
+        font-size: 1.7rem;
+    }
+}
