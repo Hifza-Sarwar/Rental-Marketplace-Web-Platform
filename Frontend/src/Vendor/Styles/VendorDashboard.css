@@ -330,3 +330,232 @@
     }
 }
 
+
+
+/* 
+   VENDOR DASHBOARD - RESPONSIVE PATCH
+   */
+
+
+/* ---------- Safe fixes (same look on desktop) ---------- */
+
+/* lets the main area shrink so wide tables scroll inside instead of pushing the page sideways */
+.vendor-dashboard .main-content{
+    min-width: 0;
+}
+/* grid minimums that could overflow very small screens */
+.vendor-dashboard .stats{
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+}
+.vendor-dashboard .listings{
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+}
+.vendor-dashboard .dashboard-navbar{
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.vendor-dashboard .sidebar{
+    overflow-y: auto;                   /* short landscape screens can still reach every item */
+}
+.profile-card p{
+    word-break: break-word;             /* long emails no longer overflow */
+}
+.vendor-dashboard .vendor-info p,
+.vendor-dashboard .card h3,
+.vendor-dashboard .card p{
+    overflow-wrap: anywhere;            /* long emails / big earnings numbers wrap instead of overflowing */
+}
+.vendor-dashboard .card{
+    min-width: 0;
+}
+
+/* hover "lift/zoom" effects get stuck on touch screens and can cause sideways scroll */
+@media (hover: none){
+    .vendor-dashboard .card:hover,
+    .vendor-dashboard .listing-card:hover{
+        transform: none;
+    }
+}
+
+
+/* ==========================================================================
+   768px and below: sidebar becomes a slim icon-only rail
+   (your old 768 rules targeted .logo and .navbar, which don't exist - fixed here)
+   ========================================================================== */
+@media (max-width: 768px){
+
+    .vendor-dashboard .sidebar{
+        width: 80px;
+    }
+    .vendor-dashboard .dashboard-logo{
+        padding: 20px 5px;
+    }
+    .vendor-dashboard .dashboard-logo h2{
+        font-size: 18px;
+    }
+
+    /* hide the text next to each icon, keep the icon */
+    .vendor-dashboard .sidebar ul li{
+        font-size: 0;
+        text-align: center;
+        padding: 18px 5px;
+    }
+    .vendor-dashboard .sidebar ul li i{
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .vendor-dashboard .main-content{
+        margin-left: 80px;
+        width: calc(100% - 80px);       /* exact fit next to the 80px rail */
+        padding: 20px;
+    }
+
+    .vendor-dashboard .dashboard-navbar h2{
+        font-size: 26px;
+    }
+
+    .vendor-dashboard table{
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .vendor-dashboard th,
+    .vendor-dashboard td{
+        white-space: nowrap;
+    }
+}
+
+
+/* ==========================================================================
+   600px and below: sidebar becomes a bottom tab bar (more room for content)
+   ========================================================================== */
+@media (max-width: 600px){
+
+    .vendor-dashboard .sidebar{
+        width: 100%;
+        height: auto;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        border-right: 0;
+        border-top: 2px solid #ff0000;
+        z-index: 1000;
+        overflow-y: visible;
+    }
+    .vendor-dashboard .dashboard-logo{
+        display: none;
+    }
+    .vendor-dashboard .sidebar ul{
+        display: flex;
+        justify-content: space-around;
+    }
+    .vendor-dashboard .sidebar ul li{
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;                /* labels come back, small, under the icon (7 items fit) */
+        line-height: 1.2;
+        text-align: center;
+        padding: 8px 2px;
+        border-left: 0;
+        border-top: 4px solid transparent;
+    }
+    .vendor-dashboard .sidebar ul li i{
+        display: block;
+        font-size: 17px;
+        margin: 0 0 4px;
+    }
+    .vendor-dashboard .sidebar ul li:hover,
+    .vendor-dashboard .sidebar ul .active{
+        border-left: 0;
+        border-top: 4px solid white;
+    }
+
+    .vendor-dashboard .main-content{
+        margin-left: 0;
+        width: 100%;
+        padding: 15px 15px 95px;        /* bottom space so the tab bar never covers content */
+    }
+
+    /* top bar */
+    .vendor-dashboard .dashboard-navbar{
+        margin-bottom: 20px;
+    }
+    .vendor-dashboard .dashboard-navbar h2{
+        font-size: 22px;
+    }
+    .vendor-dashboard .dashboard-navbar p{
+        font-size: 14px;
+    }
+    .vendor-dashboard .vendor-profile{
+        gap: 12px;
+    }
+    .vendor-dashboard .vendor-info{
+        width: 100%;
+        text-align: left;               /* wraps under the title on phones */
+    }
+    .vendor-dashboard .vendor-info h4{
+        font-size: 15px;
+    }
+    .vendor-dashboard .vendor-info p{
+        font-size: 12px;
+    }
+
+    /* stats: 2 per row */
+    .vendor-dashboard .stats{
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    .vendor-dashboard .card{
+        padding: 20px 12px;
+        border-radius: 14px;
+    }
+    .vendor-dashboard .card h3{
+        font-size: clamp(20px, 6vw, 26px);   /* shrinks with the screen so "Rs 1500000" fits */
+    }
+    .vendor-dashboard .card p{
+        font-size: 14px;
+    }
+
+    /* listings */
+    .vendor-dashboard .listings{
+        grid-template-columns: 1fr;
+    }
+    .vendor-dashboard .listing-actions{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .vendor-dashboard .listing-actions button,
+    .vendor-dashboard .delete-btn{
+        flex: 1;
+    }
+
+    /* tables */
+    .vendor-dashboard th,
+    .vendor-dashboard td{
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+
+    /* profile */
+    .profile-card{
+        padding: 20px 15px;
+    }
+}
+
+
+/* ==========================================================================
+   380px and below: stats go to one per row
+   ========================================================================== */
+@media (max-width: 380px){
+    .vendor-dashboard .stats{
+        grid-template-columns: 1fr;
+    }
+}
+
+

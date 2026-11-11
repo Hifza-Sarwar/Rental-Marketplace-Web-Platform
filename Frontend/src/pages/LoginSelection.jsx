@@ -12,15 +12,15 @@ function LoginSelection() {
           <button>User Login</button>
         </Link>
 
-
         <Link to="/vendor-login">
           <button>Vendor Login</button>
         </Link>
 
-
         <Link to="/admin-login">
           <button>Admin Login</button>
         </Link>
+
+        <Link to="/" className="back-home">← Back to Home</Link>
 
       </div>
 

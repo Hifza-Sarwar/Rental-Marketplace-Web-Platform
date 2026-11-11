@@ -3620,3 +3620,744 @@ section{
     transform:translateY(-3px);
 }
   
+/*
+   RESPONSIVE PATCH 
+   */
+
+
+/* ---------- 0. SAFETY RULES (no visible change on desktop) ---------- */
+html{
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+body{
+    overflow-x: hidden;                 /* no sideways scrolling on phones */
+}
+img, video, iframe{
+    max-width: 100%;
+}
+.find .find-row select{
+    width: 100%;
+    max-width: 190px;                   /* still 190px on desktop, shrinks when needed */
+}
+.why-card i,
+.info-box i{
+    flex-shrink: 0;                     /* icons no longer get squashed */
+}
+/* these two used fixed sizes that overflow small screens; same look on desktop */
+.rental-page{
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+.selection-auth-card{
+    max-width: 100%;
+}
+/* hamburger: your CSS never hid it on desktop, so hide it above 991px */
+@media (min-width: 992px){
+    #menubtn{ display: none; }
+}
+
+
+/* ==========================================================================
+   1200px  (small laptops)
+   ========================================================================== */
+@media (max-width: 1200px){
+
+    section{
+        padding-left: 8rem;
+        padding-right: 8rem;
+    }
+
+    /* navbar was running out of room between 992 and 1200 */
+    .header,
+    .header.sticky{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    nav .navbar .navlink{
+        gap: 1rem;
+    }
+    nav .navbar .navlink li a{
+        font-size: 1.6rem;
+    }
+}
+
+
+/* ==========================================================================
+   1150px  (hero image was being stretched by a fixed height)
+   ========================================================================== */
+@media (max-width: 1150px){
+    .home .slide .col-2 img{
+        object-fit: contain;
+    }
+}
+
+
+/* ==========================================================================
+   1100px  (tablet landscape)
+   ========================================================================== */
+@media (max-width: 1100px){
+
+    .header,
+    .header.sticky{
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+
+    /* Search card stops floating (position:absolute) and sits in normal flow,
+       so it can grow taller without covering the categories below it */
+    .search{
+        padding: 0 3rem;
+        display: flow-root;
+    }
+    .search .find{
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        max-width: 1200px;
+        margin: -6rem auto 0;
+    }
+    .browse-categories{
+        padding-top: 6rem;              /* was 30rem, only needed for the floating card */
+    }
+}
+
+
+/* ==========================================================================
+   991px  (tablet portrait)
+   ========================================================================== */
+@media (max-width: 991px){
+
+    section{
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+    section h1{
+        font-size: 3.6rem;
+    }
+
+    /* ----- Header + mobile menu ----- */
+    .header,
+    .header.sticky{
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+    }
+    .header .logo img{
+        width: auto;
+        height: 80px;
+        max-width: 150px;
+        object-fit: contain;
+    }
+    #menubtn{
+        display: inline-block;
+    }
+    nav{
+        gap: 1rem;
+    }
+    /* menu now opens right UNDER the header (it used to open over the logo) */
+    nav .navbar .navlink{
+        top: 100%;
+        padding: 1rem 0 1rem 3rem;
+        max-height: 75vh;
+        overflow-y: auto;
+    }
+
+    /* dropdowns become stacked lists inside the mobile menu */
+    nav .navbar ul li .drop-down{
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0 0 0 1.5rem;
+        margin-top: .5rem;
+    }
+    nav .navbar ul li .drop-down li{
+        position: relative;
+        overflow: visible;
+        padding-right: 3rem;
+    }
+    .drop-down li .drop-down-two,
+    .drop-down li .drop-down-three,
+    .drop-down li .drop-down-four,
+    .drop-down li .drop-down-five,
+    .drop-down li .drop-down-six,
+    .drop-down li:hover .drop-down-two,
+    .drop-down li:hover .drop-down-three,
+    .drop-down li:hover .drop-down-four,
+    .drop-down li:hover .drop-down-five,
+    .drop-down li:hover .drop-down-six{
+        position: static;
+        left: auto;
+        width: 100%;
+        margin-top: .5rem;
+        box-shadow: none;
+        padding: 0 0 0 1.5rem;
+    }
+    .drop-down li .chev{
+        left: auto;
+        right: 1rem;
+        top: 1rem;
+    }
+    nav .navbar ul li .drop-down.open{
+        display: flex;
+    }
+
+    /* ----- Hero ----- */
+    .home .slide .col-1 p{
+        font-size: 1.8rem;
+    }
+    .home .slide .col-2 img{
+        height: 30rem;
+    }
+
+    /* ----- Search ----- */
+    .find .find-row{
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    /* ----- How it works: 2 per row ----- */
+    .work-card{
+        flex: 1 1 calc(50% - 20px);
+    }
+
+    /* ----- Counter: fixed backgrounds jump/zoom on phones ----- */
+    .counter{
+        background-attachment: scroll;
+    }
+
+    /* ----- About / market ----- */
+    .market{
+        padding-top: 8rem;              /* was 35rem = huge empty gap */
+        gap: 4rem;
+    }
+    .market .col-3,
+    .market .col-4{
+        flex: none;                     /* flex-basis 45rem was acting as a HEIGHT here */
+        width: 100%;
+    }
+    .market .col-3 img.one{
+        height: 40rem;
+    }
+
+    /* ----- Category hero ----- */
+    .category-hero{
+        padding-top: 60px;
+        gap: 30px;
+    }
+    .hero-content h1,
+    .hero-content h2{
+        font-size: 44px;
+        line-height: 56px;
+    }
+    .hero-content h1 span,
+    .hero-content h2 span{
+        font-size: inherit;
+    }
+}
+
+
+/* ==========================================================================
+   768px  (large phones / small tablets)
+   ========================================================================== */
+@media (max-width: 768px){
+
+    section{
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+    section h1{
+        font-size: 2.8rem;              /* re-stated so it still wins over the 991 rule above */
+    }
+
+    /* ----- Hero (side padding was 5rem 10rem) ----- */
+    .home .slide{
+        padding: 4rem 3rem;
+    }
+
+    /* ----- Search ----- */
+    .search{
+        padding: 0 2rem;
+    }
+    .find h3{
+        font-size: 2.2rem;
+    }
+
+    /* ----- FAQ: answers were clipped at 300px on narrow screens ----- */
+    .acordion-item.active .accordion-content{
+        max-height: 700px;
+    }
+
+    /* ----- Footer ----- */
+    .footer-bottom{
+        padding: 2.5rem 2rem;
+    }
+
+    /* ----- iOS Safari zooms the page when an input is smaller than 16px ----- */
+    .find .find-row select,
+    .newsletter-form input,
+    .booking-box input,
+    .booking-input-group input,
+    .input-group select,
+    .rental-type select,
+    .contact-form input,
+    .contact-form textarea,
+    .input-box input,
+    .input-box textarea,
+    .input-box select,
+    .login-auth-card input{
+        font-size: 16px;
+    }
+
+    /* ----- Category page ----- */
+    .top h1{
+        font-size: 3.4rem;
+    }
+
+    /* ----- View detail ----- */
+    .view-container{
+        padding: 50px 5%;
+    }
+
+    /* ----- Login (old rule used .95rem = 9.5px text) ----- */
+    .login-modal-overlay{
+        padding: 15px;
+        overflow-y: auto;
+    }
+    .login-auth-card{
+        max-height: 92vh;
+        overflow-y: auto;
+    }
+    .login-auth-card button{
+        font-size: 1.6rem;
+    }
+    .login-auth-card .login-close-btn{
+        font-size: 2.4rem;
+    }
+
+    /* ----- Contact ----- */
+    .contact-section{
+        padding: 70px 6%;
+    }
+
+    /* ----- Booking page product box ----- */
+    .selected-product{
+        gap: 20px;
+        padding: 20px;
+    }
+    .selected-product img{
+        width: 160px;
+        height: 160px;
+    }
+
+    /* ----- Success page (text was 11px) ----- */
+    .success-card p{
+        font-size: 1.5rem;
+    }
+}
+
+
+/* ==========================================================================
+   700px  (fixes a bug in your add-listing media query)
+   ========================================================================== */
+@media (max-width: 700px){
+    /* your old rule `.img-box img{80px}` also shrank the FEATURED card images.
+       This puts them back to a normal card image size. */
+    .img-box img{
+        width: 100%;
+        height: 200px;
+    }
+}
+
+
+/* ==========================================================================
+   600px  (phones)
+   ========================================================================== */
+@media (max-width: 600px){
+
+    section h4{
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
+    section h1{
+        font-size: 2.6rem;
+        letter-spacing: .2rem;
+        margin-bottom: 4rem;
+    }
+
+    /* ----- Hero (your old rule made the title BIGGER on phones) ----- */
+    .home .slide .col-1 h4{
+        font-size: 1.6rem;
+        padding-bottom: 2rem;
+        letter-spacing: 2px;
+    }
+    .home .slide .col-1 h1{
+        font-size: 2.6rem;
+        letter-spacing: 1px;
+    }
+    .home .slide .col-1 p{
+        font-size: 1.5rem;
+        line-height: 1.7;
+    }
+    .home .slide .col-1 .button button{
+        padding: 1.4rem 2.6rem 1.4rem 1.8rem;
+        font-size: 1.4rem;
+    }
+    .home .slide .col-2 img{
+        height: 22rem;
+    }
+
+    /* ----- Search ----- */
+    .find .find-row{
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .find .find-row h4{
+        padding-bottom: 1rem;
+    }
+    .find .find-row select{
+        max-width: 100%;
+    }
+    .search .seacrh-btn button{
+        width: 100%;
+        margin-top: 2.5rem;
+    }
+    .search .find{
+        padding: 2rem;
+    }
+
+    /* ----- How it works: 1 per row ----- */
+    .work-card{
+        flex: 1 1 100%;
+    }
+
+    /* ----- About / market ----- */
+    .market{
+        padding-top: 6rem;
+    }
+    .market .col-3 img.one{
+        height: 32rem;
+    }
+    .market .col-4 .p1{
+        font-size: 1.5rem;
+    }
+    .market .col-4 button{
+        width: 100%;
+    }
+
+    /* ----- Footer ----- */
+    .contact-list li{
+        word-break: break-word;
+    }
+
+    /* ----- Category page ----- */
+    .top h1{
+        font-size: 2.8rem;
+    }
+    .rental-page{
+        gap: 25px;
+    }
+    .card img{
+        height: 210px;
+    }
+    .content h3{
+        font-size: 2rem;
+    }
+    .content p{
+        font-size: 1.7rem;
+    }
+
+    /* ----- Category hero ----- */
+    .category-hero{
+        padding: 50px 5%;
+    }
+    .hero-content h1,
+    .hero-content h2{
+        font-size: 32px;
+        line-height: 42px;
+    }
+    .hero-btns button{
+        width: 100%;
+    }
+
+    /* ----- View detail ----- */
+    .view-container{
+        padding: 30px 4%;
+    }
+    .view-card{
+        padding: 20px;
+        gap: 25px;
+    }
+    .view-left img{
+        height: 240px;
+    }
+    .view-right h2{
+        font-size: 2.4rem;
+    }
+    .booking-box label{
+        font-size: 1.6rem;
+    }
+
+    /* ----- Booking page product box ----- */
+    .selected-product{
+        flex-direction: column;
+        text-align: center;
+    }
+    .selected-product img{
+        width: 100%;
+        height: 200px;
+    }
+    .selected-product h3{
+        font-size: 24px;
+    }
+    .selected-product p{
+        font-size: 16px;
+    }
+
+    /* ----- Contact ----- */
+    .contact-hero{
+        margin-bottom: 40px;
+    }
+    .contact-form,
+    .info-box{
+        padding: 20px;
+    }
+    .contact-form h2{
+        font-size: 2.4rem;
+    }
+
+    /* ----- About page ----- */
+    .about-hero{
+        min-height: 45vh;
+        padding: 60px 20px;
+    }
+    .about-hero-content h1{
+        font-size: 2.8rem;
+    }
+    .about-story,
+    .mission,
+    .vision{
+        margin: 60px auto;
+    }
+}
+
+
+/* ==========================================================================
+   480px  (small phones)
+   ========================================================================== */
+@media (max-width: 480px){
+
+    /* your old rule added 30px of empty space above the whole page on phones */
+    body{
+        padding-top: 0;
+    }
+
+    section{
+        padding-left: 1.6rem;
+        padding-right: 1.6rem;
+    }
+    section h1{
+        font-size: 2.4rem;
+    }
+
+    /* ----- Hero ----- */
+    .home .slide{
+        padding: 4rem 2rem;
+    }
+    .home .slide .col-1 h4{
+        font-size: 1.3rem;
+    }
+    .home .slide .col-1 h1{
+        font-size: 2.2rem;
+    }
+
+    /* ----- Search ----- */
+    .search{
+        padding: 0 1.6rem;
+    }
+    .search .find{
+        padding: 1.6rem;
+    }
+
+    /* ----- Categories: 2 per row on phones ----- */
+    .category-container{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    .category-card{
+        height: 170px;
+        padding: 15px;
+        border-radius: 18px;
+    }
+    .category-icon{
+        width: 60px;
+        height: 60px;
+        margin-bottom: 12px;
+    }
+    .category-icon i{
+        font-size: 24px;
+    }
+    .category-card h3{
+        font-size: 1.6rem;
+    }
+
+    /* ----- Featured ----- */
+    .feat-content{
+        padding: 1.5rem;
+    }
+
+    /* ----- About / market ----- */
+    .market .col-3 img.one{
+        height: 28rem;
+    }
+    .market .col-3 .service{
+        left: 10px;
+        bottom: 10px;
+        gap: 1rem;
+        padding: 1.2rem;
+    }
+    .market .col-3 .service i{
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+        font-size: 1.6rem;
+    }
+    .market .col-3 .service span{
+        font-size: 1.4rem;
+    }
+
+    /* ----- FAQ ----- */
+    .accordion-button{
+        padding: 1.5rem;
+    }
+    .accordion-content{
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    .acordion-item.active .accordion-content{
+        padding: 0 1.5rem 1.5rem;
+    }
+
+    /* ----- Footer ----- */
+    .footer{
+        padding-top: 5rem;
+    }
+    .footer-brand h2{
+        font-size: 2.4rem;
+    }
+
+    /* ----- CTA ----- */
+    .cta{
+        padding: 4rem 1.6rem;
+    }
+    .cta-container{
+        padding: 3rem 2rem;
+        border-radius: 22px;
+    }
+
+    /* ----- Category page ----- */
+    .category-page{
+        width: 92%;
+        padding: 30px 0;
+    }
+    .pagination{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    /* ----- Booking ----- */
+    .booking-wrapper{
+        padding-top: 30px;
+    }
+    .booking-card h2{
+        font-size: 2.2rem;
+    }
+    .booking-input-group label{
+        font-size: 1.6rem;
+    }
+
+    /* ----- Contact ----- */
+    .contact-hero h1{
+        font-size: 2.6rem;
+    }
+    .info-box{
+        gap: 15px;
+    }
+
+    /* ----- Login (old rules used .9rem = 9px and 1.5rem title) ----- */
+    .login-auth-card h2{
+        font-size: 1.8rem;
+    }
+    .login-auth-card p{
+        font-size: 1.3rem;
+    }
+
+    /* ----- Success page ----- */
+    .success-card{
+        padding: 30px 20px;
+    }
+    .success-card h1{
+        font-size: 2.4rem;
+    }
+
+    /* ----- Add listing ----- */
+    .add-listing-page{
+        padding: 25px 12px;
+    }
+    .upload-box{
+        font-size: 1.3rem;
+    }
+    .listing-img-box{
+        width: 100px;
+        height: 100px;
+    }
+
+    /* ----- Selection page ----- */
+    .selection-auth-card{
+        padding: 30px 20px;
+    }
+    .selection-auth-card h2{
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+}
+
+
+/* ==========================================================================
+   420px  (very small phones)
+   ========================================================================== */
+@media (max-width: 420px){
+
+    .header .logo img{
+        height: 60px;
+        max-width: 120px;
+    }
+    nav .others{
+        gap: 1rem;
+    }
+}
+
+/* Add Listing icon: only shows where the text button is hidden (1190px and below) */
+nav .others i.add-icon{
+    display: none;
+}
+@media (max-width: 1190px){
+    nav .others i.add-icon{
+        display: inline-block;
+        color: var(--main-color);
+        font-size: 2.6rem;
+    }
+}
+
+/* back to home styling at teh seetion page */
+
+.selection-auth-card a.back-home{
+    color: #bbb;
+    font-size: 1.5rem;
+    margin: 10px 0 0;
+    transition: 0.3s;
+}
+.selection-auth-card a.back-home:hover{
+    color: var(--main-color);
+}

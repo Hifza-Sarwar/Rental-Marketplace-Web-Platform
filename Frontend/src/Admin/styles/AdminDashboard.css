@@ -232,3 +232,191 @@
     border-radius:6px;
     cursor:pointer;
 }
+
+/* ==========================================================================
+   ADMIN DASHBOARD - RESPONSIVE PATCH
+   Paste at the very END of your admin dashboard CSS file.
+   Colors, fonts and the desktop layout (above 1024px) are NOT changed.
+   Rules that touch .sidebar are scoped to .admin-dashboard so they can't
+   leak into the vendor dashboard (which also uses a .sidebar class).
+   ========================================================================== */
+
+
+/* ---------- Safe fixes (same look on desktop) ---------- */
+.admin-dashboard .admin-content{
+    min-width: 0;                       /* wide tables scroll inside instead of pushing the page */
+}
+.dashboard-cards{
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+}
+.dashboard-card h2,
+.dashboard-card h3{
+    overflow-wrap: anywhere;            /* big numbers wrap instead of overflowing */
+}
+.admin-search-box{
+    max-width: 100%;
+}
+@media (hover: none){
+    .dashboard-card:hover{
+        transform: none;
+    }
+}
+
+
+/* ==========================================================================
+   1024px  (tablet landscape)
+   ========================================================================== */
+@media (max-width: 1024px){
+
+    .admin-dashboard .sidebar{
+        width: 220px;
+        padding: 20px;
+    }
+    .admin-logo{
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+    .admin-dashboard .admin-content{
+        padding: 30px;
+    }
+}
+
+
+/* ==========================================================================
+   768px  (tablet portrait / phones): sidebar becomes a top bar
+   ========================================================================== */
+@media (max-width: 768px){
+
+    .admin-dashboard{
+        flex-direction: column;
+    }
+
+    .admin-dashboard .sidebar{
+        width: 100%;
+        padding: 15px 15px 10px;
+    }
+    .admin-logo{
+        font-size: 26px;
+        margin-bottom: 12px;
+    }
+
+    /* menu turns into one horizontal, swipeable row */
+    .admin-menu{
+        margin-top: 0;
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 5px;
+        -webkit-overflow-scrolling: touch;
+    }
+    .admin-menu li{
+        margin-bottom: 0;
+        padding: 10px 16px;
+        font-size: 15px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .admin-dashboard .admin-content{
+        width: 100%;
+        padding: 20px 15px;
+    }
+    .admin-content h1{
+        font-size: 28px;
+    }
+
+    .dashboard-body{
+        margin-top: 20px;
+    }
+
+    /* tables scroll sideways inside their own box */
+    .admin-table,
+    .users-section table{
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .admin-table th,
+    .admin-table td,
+    .users-section th,
+    .users-section td{
+        white-space: nowrap;
+    }
+    .users-section{
+        margin-top: 30px;
+    }
+}
+
+
+/* ==========================================================================
+   600px  (phones)
+   ========================================================================== */
+@media (max-width: 600px){
+
+    .admin-content h1{
+        font-size: 24px;
+    }
+
+    /* top bar */
+    .admin-navbar{
+        padding: 14px 16px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .navbar-right{
+        gap: 10px;
+    }
+    .admin-profile{
+        gap: 10px;
+    }
+    .admin-search-box{
+        width: 100%;
+        font-size: 16px;                /* stops iPhone zoom on focus */
+    }
+
+    /* stat cards: 2 per row */
+    .dashboard-cards{
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 20px;
+    }
+    .dashboard-card{
+        padding: 20px 14px;
+        border-radius: 14px;
+    }
+    .dashboard-card h3{
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    .dashboard-card h2{
+        font-size: clamp(22px, 7vw, 30px);
+    }
+
+    /* tables + buttons */
+    .admin-table th,
+    .admin-table td,
+    .users-section th,
+    .users-section td{
+        padding: 12px;
+        font-size: 14px;
+    }
+    .approve-btn,
+    .delete-btn{
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    .users-section button{
+        padding: 7px 12px;
+        font-size: 14px;
+    }
+}
+
+
+/* ==========================================================================
+   380px  (very small phones): stat cards one per row
+   ========================================================================== */
+@media (max-width: 380px){
+    .dashboard-cards{
+        grid-template-columns: 1fr;
+    }
+}
