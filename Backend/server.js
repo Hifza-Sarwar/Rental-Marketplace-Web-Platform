@@ -16,8 +16,8 @@ app.use(express.json());
 
 app.use(cors(
   {
-    origin:"https://rent-hub-hifza-sarwar.vercel.app",
-    credentials:true
+    origin: ["https://rent-hub-hifza-sarwar.vercel.app", "https://rental-marketplace-web-platform.vercel.app", "http://localhost:5173"],
+    credentials: true
   }
 ));
 
